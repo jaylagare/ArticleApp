@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { InMemoryWebApiModule } from "angular-in-memory-web-api"; // should be after HttpClientModule
 
 import { ReactiveFormsModule } from '@angular/forms'
@@ -19,6 +19,10 @@ import { ArticleEditComponent } from './article-edit/article-edit.component';
 import { ArticleAddComponent } from './article-add/article-add.component';
 
 import { DataService } from "./data.service";
+import { LoginComponent } from './login/login.component';
+
+// import { JwtInterceptor, ErrorInterceptor } from './jwt.interceptor';
+import { JwtInterceptor } from './jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,8 @@ import { DataService } from "./data.service";
     ArticleListComponent,
     ArticleViewComponent,
     ArticleEditComponent,
-    ArticleAddComponent
+    ArticleAddComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,9 @@ import { DataService } from "./data.service";
     MatFormFieldModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

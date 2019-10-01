@@ -6,7 +6,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class ArticleService {
 	// API_URL: string = "api/";
-	API_URL: string = "http://localhost:3000/";
+	API_URL: string = "https://service.salusciens.com/";
 
 	constructor(private httpClient: HttpClient) { }
 
@@ -29,5 +29,4 @@ export class ArticleService {
 	deleteArticle(articleId) {
 		return this.httpClient.delete(`${this.API_URL}articles/${articleId}`);
 	}
-
 }
